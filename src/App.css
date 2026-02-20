@@ -1,42 +1,96 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  min-height: 100vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+main {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  min-height: 100vh;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+article {
+  width: min(900px, calc(100% - 2rem));
+  margin: 2rem auto 1rem;
+  padding: 1.5rem;
+  background: rgba(19, 24, 34, 0.92);
+  border: 1px solid rgba(123, 155, 214, 0.2);
+  border-radius: 16px;
+}
+
+article h1 {
+  margin: 0.25rem 0 0.75rem;
+  font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+}
+
+article h2 {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #9fb4da;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.45rem;
+  text-align: left;
+}
+
+nav {
+  position: sticky;
+  bottom: 0;
+  border-top: 1px solid rgba(123, 155, 214, 0.25);
+  background: rgba(10, 13, 20, 0.92);
+  backdrop-filter: blur(10px);
+}
+
+nav ul {
+  display: flex;
+  gap: 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0.85rem 1rem 1rem;
+  overflow-x: auto;
+}
+
+nav button {
+  border: 1px solid rgba(123, 155, 214, 0.4);
+  border-radius: 999px;
+  background: rgba(27, 35, 52, 0.9);
+  color: #d8e2f5;
+  padding: 0.45rem 0.8rem;
+  cursor: pointer;
+  display: grid;
+  gap: 0.05rem;
+  text-align: left;
+  min-width: 7rem;
+}
+
+nav button[aria-current='true'] {
+  border-color: #9ec0ff;
+  background: rgba(55, 84, 135, 0.9);
+}
+
+nav button span:first-child {
+  font-weight: 700;
+}
+
+nav button:focus-visible {
+  outline: 2px solid #c9ddff;
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  article {
+    margin-top: 1rem;
+    width: calc(100% - 1rem);
+    padding: 1rem;
+    border-radius: 12px;
   }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
