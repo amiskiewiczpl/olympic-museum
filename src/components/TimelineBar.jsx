@@ -7,9 +7,9 @@ function clampDistance(distance) {
 function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
   const trackRef = useRef(null)
   const itemRefs = useRef(new Map())
-  const suppressAutoSelectRef = useRef(false)
-  const suppressTimeoutRef = useRef(null)
+  const wheelTimeoutRef = useRef(null)
   const dragStateRef = useRef({
+    isPointerDown: false,
     dragging: false,
     pointerId: null,
     startX: 0,
@@ -20,26 +20,18 @@ function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
     const activeNode = itemRefs.current.get(activeId)
 
     if (activeNode) {
-      suppressAutoSelectRef.current = true
-      if (suppressTimeoutRef.current) {
-        clearTimeout(suppressTimeoutRef.current)
-      }
       activeNode.scrollIntoView({
         behavior: 'smooth',
         inline: 'center',
         block: 'nearest',
       })
-
-      suppressTimeoutRef.current = setTimeout(() => {
-        suppressAutoSelectRef.current = false
-      }, 280)
     }
   }, [activeId])
 
   useEffect(
     () => () => {
-      if (suppressTimeoutRef.current) {
-        clearTimeout(suppressTimeoutRef.current)
+      if (wheelTimeoutRef.current) {
+        clearTimeout(wheelTimeoutRef.current)
       }
     },
     [],
@@ -49,14 +41,13 @@ function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
     () =>
       editions.map((edition, index) => {
         const distance = clampDistance(index - activeIndex)
-        const scale = Math.max(0.68, 1 - distance * 0.08)
-        const opacity = Math.max(0.3, 1 - distance * 0.12)
+        const scale = Math.max(0.88, 1 - distance * 0.025)
+        const opacity = Math.max(0.72, 1 - distance * 0.05)
 
         return {
           edition,
           scale,
           opacity,
-          distance,
           isActive: edition.id === activeId,
         }
       }),
@@ -64,10 +55,6 @@ function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
   )
 
   function selectNearestToCenter() {
-    if (suppressAutoSelectRef.current || dragStateRef.current.dragging) {
-      return
-    }
-
     const track = trackRef.current
 
     if (!track) {
@@ -96,13 +83,14 @@ function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
   function handlePointerDown(event) {
     const track = trackRef.current
     if (!track) return
+    if (event.target.closest('button')) return
 
-    dragStateRef.current.dragging = true
+    dragStateRef.current.isPointerDown = true
+    dragStateRef.current.dragging = false
     dragStateRef.current.pointerId = event.pointerId
     dragStateRef.current.startX = event.clientX
     dragStateRef.current.startScrollLeft = track.scrollLeft
 
-    track.classList.add('timeline-track--dragging')
     track.setPointerCapture(event.pointerId)
   }
 
@@ -110,11 +98,20 @@ function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
     const track = trackRef.current
     const state = dragStateRef.current
 
-    if (!track || !state.dragging || state.pointerId !== event.pointerId) {
+    if (!track || !state.isPointerDown || state.pointerId !== event.pointerId) {
       return
     }
 
     const deltaX = event.clientX - state.startX
+    if (!state.dragging && Math.abs(deltaX) < 6) {
+      return
+    }
+
+    if (!state.dragging) {
+      state.dragging = true
+      track.classList.add('timeline-track--dragging')
+    }
+
     track.scrollLeft = state.startScrollLeft - deltaX
   }
 
@@ -122,14 +119,18 @@ function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
     const track = trackRef.current
     const state = dragStateRef.current
 
-    if (!track || !state.dragging || state.pointerId !== pointerId) {
+    if (!track || !state.isPointerDown || state.pointerId !== pointerId) {
       return
     }
 
+    const shouldSnap = state.dragging
+    state.isPointerDown = false
     state.dragging = false
     state.pointerId = null
     track.classList.remove('timeline-track--dragging')
-    selectNearestToCenter()
+    if (shouldSnap) {
+      selectNearestToCenter()
+    }
   }
 
   function handleWheel(event) {
@@ -142,16 +143,21 @@ function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
     if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
       event.preventDefault()
       track.scrollLeft += event.deltaY
+
+      if (wheelTimeoutRef.current) {
+        clearTimeout(wheelTimeoutRef.current)
+      }
+      wheelTimeoutRef.current = setTimeout(() => {
+        selectNearestToCenter()
+      }, 140)
     }
   }
 
   return (
     <nav className="timeline" aria-label="Olympic editions timeline">
-      <div className="timeline-center-indicator" aria-hidden="true" />
       <div
         ref={trackRef}
         className="timeline-track"
-        onScroll={selectNearestToCenter}
         onWheel={handleWheel}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
@@ -159,14 +165,13 @@ function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
         onPointerCancel={(event) => finishDrag(event.pointerId)}
       >
         <ul className="timeline-list">
-          {visualItems.map(({ edition, isActive, opacity, scale, distance }) => (
+          {visualItems.map(({ edition, isActive, opacity, scale }) => (
             <li
               key={edition.id}
               className="timeline-item"
               style={{
                 '--item-opacity': opacity,
                 '--item-scale': scale,
-                '--item-distance': distance,
               }}
               ref={(node) => {
                 if (node) {

@@ -13,7 +13,7 @@ function ExhibitView({ edition }) {
         <p className="exhibit-meta">
           {edition.city}, {edition.country} | {edition.dates}
         </p>
-        {isCancelled ? <p className="exhibit-status">Edycja odwo≥ana</p> : null}
+        {isCancelled ? <p className="exhibit-status">Edycja odwoÔøΩana</p> : null}
       </header>
 
       <p className="exhibit-summary">{edition.summary}</p>
@@ -34,7 +34,7 @@ function ExhibitView({ edition }) {
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">PaÒstwo</th>
+                <th scope="col">PaÔøΩstwo</th>
                 <th scope="col">Z</th>
                 <th scope="col">S</th>
                 <th scope="col">B</th>
@@ -55,12 +55,12 @@ function ExhibitView({ edition }) {
             </tbody>
           </table>
         ) : (
-          <p className="exhibit-note">Dla tej edycji tabela medalowa nie zosta≥a jeszcze dodana do ekspozycji.</p>
+          <p className="exhibit-note">Dla tej edycji tabela medalowa nie zostaÔøΩa jeszcze dodana do ekspozycji.</p>
         )}
       </section>
 
       <section aria-labelledby="sources-heading">
-        <h2 id="sources-heading">èrÛd≥a</h2>
+        <h2 id="sources-heading">ÔøΩrÔøΩdÔøΩa</h2>
         <ul>
           {edition.sources.map((source) => (
             <li key={source.url}>
