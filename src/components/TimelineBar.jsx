@@ -140,9 +140,11 @@ function TimelineBar({ editions, activeId, activeIndex, onSelect }) {
       return
     }
 
-    if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
+    const isHorizontalIntent = event.shiftKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)
+    if (isHorizontalIntent) {
       event.preventDefault()
-      track.scrollLeft += event.deltaY
+      const delta = Math.abs(event.deltaX) > 0 ? event.deltaX : event.deltaY
+      track.scrollLeft += delta
 
       if (wheelTimeoutRef.current) {
         clearTimeout(wheelTimeoutRef.current)
