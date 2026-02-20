@@ -1,4 +1,4 @@
-export type EditionSeason = 'Summer' | 'Winter'
+﻿export type EditionSeason = 'Summer' | 'Winter'
 export type EditionStatus = 'held' | 'cancelled'
 
 export type MedalTableEntry = {
@@ -60,13 +60,13 @@ const RAW_EDITIONS: RawEdition[] = [
   { year: 1936, season: 'Summer', city: 'Berlin', country: 'Germany', dates: '1-16 August 1936' },
   { year: 1940, season: 'Winter', city: 'Sapporo', country: 'Japan', dates: 'Cancelled (World War II)', status: 'cancelled' },
   { year: 1940, season: 'Summer', city: 'Tokyo', country: 'Japan', dates: 'Cancelled (World War II)', status: 'cancelled' },
-  { year: 1944, season: 'Winter', city: 'Cortina d\'Ampezzo', country: 'Italy', dates: 'Cancelled (World War II)', status: 'cancelled' },
+  { year: 1944, season: 'Winter', city: "Cortina d'Ampezzo", country: 'Italy', dates: 'Cancelled (World War II)', status: 'cancelled' },
   { year: 1944, season: 'Summer', city: 'London', country: 'Great Britain', dates: 'Cancelled (World War II)', status: 'cancelled' },
   { year: 1948, season: 'Winter', city: 'St. Moritz', country: 'Switzerland', dates: '30 January-8 February 1948' },
   { year: 1948, season: 'Summer', city: 'London', country: 'Great Britain', dates: '29 July-14 August 1948' },
   { year: 1952, season: 'Winter', city: 'Oslo', country: 'Norway', dates: '14-25 February 1952' },
   { year: 1952, season: 'Summer', city: 'Helsinki', country: 'Finland', dates: '19 July-3 August 1952' },
-  { year: 1956, season: 'Winter', city: 'Cortina d\'Ampezzo', country: 'Italy', dates: '26 January-5 February 1956' },
+  { year: 1956, season: 'Winter', city: "Cortina d'Ampezzo", country: 'Italy', dates: '26 January-5 February 1956' },
   { year: 1956, season: 'Summer', city: 'Melbourne', country: 'Australia', dates: '22 November-8 December 1956' },
   { year: 1960, season: 'Winter', city: 'Squaw Valley', country: 'United States', dates: '18-28 February 1960' },
   { year: 1960, season: 'Summer', city: 'Rome', country: 'Italy', dates: '25 August-11 September 1960' },
@@ -140,10 +140,10 @@ function buildBaseEdition(raw: RawEdition): Edition {
       hostNations: [raw.country],
       title,
       summary:
-        'Ta edycja igrzysk zosta�a odwo�ana z powod�w historycznych. Zachowujemy j� na osi czasu jako wa�ny punkt kontekstu.',
+        'Ta edycja igrzysk została odwołana z powodów historycznych. Zachowujemy ją na osi czasu jako ważny punkt kontekstu.',
       highlights: [
-        'Odwo�anie igrzysk pokazuje jak wydarzenia globalne wp�ywa�y na sport.',
-        'Edycja pozostaje cz�ci� historii ruchu olimpijskiego.',
+        'Odwołanie igrzysk pokazuje, jak wydarzenia globalne wpływały na sport.',
+        'Edycja pozostaje częścią historii ruchu olimpijskiego.',
       ],
       medalTableTop: [],
       sources: [
@@ -164,10 +164,10 @@ function buildBaseEdition(raw: RawEdition): Edition {
     hostNations: [raw.country],
     title,
     summary:
-      'Edycja olimpijska wpisana w globaln� histori� sportu. W tej wersji muzeum cz�� danych jest skr�cona i mo�e by� rozwijana o kolejne eksponaty.',
+      'Edycja olimpijska wpisana w globalną historię sportu. W tej wersji muzeum część danych jest skrócona i może być rozwijana o kolejne eksponaty.',
     highlights: [
-      'To jedna z pe�nej osi igrzysk nowo�ytnych.',
-      'W kolejnych iteracjach mo�na rozszerzy� o rekordy, bohater�w i kontekst polityczny.',
+      'To jedna z pełnej osi igrzysk nowożytnych.',
+      'W kolejnych iteracjach można rozszerzyć dane o rekordy, bohaterów i kontekst polityczny.',
     ],
     medalTableTop: [],
     sources: [
@@ -182,11 +182,11 @@ type EditionOverride = Partial<Omit<Edition, 'id' | 'year' | 'season' | 'city' |
 const EDITION_OVERRIDES: Record<string, EditionOverride> = {
   [toId({ season: 'Summer', city: 'Athens', year: 1896 })]: {
     summary:
-      'Pierwsze nowo�ytne igrzyska olimpijskie odnowi�y tradycj� olimpijsk� i zgromadzi�y zawodnik�w z 14 pa�stw.',
+      'Pierwsze nowożytne igrzyska olimpijskie odnowiły tradycję olimpijską i zgromadziły zawodników z 14 państw.',
     highlights: [
-      'Oko�o 241 sportowc�w rywalizowa�o w 43 konkurencjach.',
-      'Spyridon Louis wygra� maraton i sta� si� bohaterem narodowym Grecji.',
-      'Wi�kszo�� uczestnik�w stanowili sportowcy-amatorzy.',
+      'Około 241 sportowców rywalizowało w 43 konkurencjach.',
+      'Spyridon Louis wygrał maraton i stał się bohaterem narodowym Grecji.',
+      'Większość uczestników stanowili sportowcy-amatorzy.',
     ],
     medalTableTop: [
       { rank: 1, country: 'United States', gold: 11, silver: 7, bronze: 2, total: 20 },
@@ -196,10 +196,10 @@ const EDITION_OVERRIDES: Record<string, EditionOverride> = {
   },
   [toId({ season: 'Summer', city: 'Berlin', year: 1936 })]: {
     summary:
-      'Igrzyska silnie wykorzystywane propagandowo, zapami�tane tak�e dzi�ki czterem z�otom Jessego Owensa.',
+      'Igrzyska silnie wykorzystywane propagandowo, zapamiętane także dzięki czterem złotym medalom Jessego Owensa.',
     highlights: [
-      'Jesse Owens zdoby� 4 z�ote medale w lekkoatletyce.',
-      'Po raz pierwszy zastosowano sztafet� z ogniem olimpijskim.',
+      'Jesse Owens zdobył 4 złote medale w lekkoatletyce.',
+      'Po raz pierwszy zastosowano sztafetę z ogniem olimpijskim.',
       'Transmitowano wybrane wydarzenia telewizyjnie.',
     ],
     medalTableTop: [
@@ -210,11 +210,11 @@ const EDITION_OVERRIDES: Record<string, EditionOverride> = {
   },
   [toId({ season: 'Summer', city: 'Mexico City', year: 1968 })]: {
     summary:
-      'Igrzyska na wysoko�ci, pe�ne rekord�w i pami�tnych gest�w spo�ecznych sportowc�w.',
+      'Igrzyska na wysokości, pełne rekordów i pamiętnych gestów społecznych sportowców.',
     highlights: [
       'Tommie Smith i John Carlos wykonali symboliczny gest na podium.',
-      'Bob Beamon ustanowi� legendarny rekord skoku w dal.',
-      'By�y to pierwsze igrzyska olimpijskie w Ameryce �aci�skiej.',
+      'Bob Beamon ustanowił legendarny rekord skoku w dal.',
+      'Były to pierwsze igrzyska olimpijskie w Ameryce Łacińskiej.',
     ],
     medalTableTop: [
       { rank: 1, country: 'United States', gold: 45, silver: 28, bronze: 34, total: 107 },
@@ -224,11 +224,11 @@ const EDITION_OVERRIDES: Record<string, EditionOverride> = {
   },
   [toId({ season: 'Summer', city: 'Moscow', year: 1980 })]: {
     summary:
-      'Jedna z najbardziej upolitycznionych edycji, ukszta�towana przez mi�dzynarodowy bojkot.',
+      'Jedna z najbardziej upolitycznionych edycji, ukształtowana przez międzynarodowy bojkot.',
     highlights: [
-      'Wiele kraj�w zbojkotowa�o igrzyska po inwazji ZSRR na Afganistan.',
-      'Maskotka Misza sta�a si� jednym z najs�ynniejszych symboli olimpijskich.',
-      'Gospodarze zdominowali klasyfikacj� medalow�.',
+      'Wiele krajów zbojkotowało igrzyska po inwazji ZSRR na Afganistan.',
+      'Maskotka Misza stała się jednym z najsłynniejszych symboli olimpijskich.',
+      'Gospodarze zdominowali klasyfikację medalową.',
     ],
     medalTableTop: [
       { rank: 1, country: 'Soviet Union', gold: 80, silver: 69, bronze: 46, total: 195 },
@@ -238,11 +238,11 @@ const EDITION_OVERRIDES: Record<string, EditionOverride> = {
   },
   [toId({ season: 'Summer', city: 'Sydney', year: 2000 })]: {
     summary:
-      'Sydney 2000 jest cz�sto uznawane za jedn� z najlepiej zorganizowanych nowoczesnych olimpiad.',
+      'Sydney 2000 jest często uznawane za jedną z najlepiej zorganizowanych nowoczesnych olimpiad.',
     highlights: [
-      'Cathy Freeman zapali�a znicz i wygra�a bieg na 400 m.',
-      'Delegacje Korei P�nocnej i Po�udniowej maszerowa�y wsp�lnie.',
-      'Mocno akcentowano wolontariat i zr�wnowa�enie wydarzenia.',
+      'Cathy Freeman zapaliła znicz i wygrała bieg na 400 m.',
+      'Delegacje Korei Północnej i Południowej maszerowały wspólnie.',
+      'Mocno akcentowano wolontariat i zrównoważenie wydarzenia.',
     ],
     medalTableTop: [
       { rank: 1, country: 'United States', gold: 37, silver: 24, bronze: 32, total: 93 },
@@ -252,11 +252,11 @@ const EDITION_OVERRIDES: Record<string, EditionOverride> = {
   },
   [toId({ season: 'Summer', city: 'Beijing', year: 2008 })]: {
     summary:
-      'Beijing 2008 ��czy�o wielk� skal� widowiska z prze�omowymi wynikami sportowymi.',
+      'Beijing 2008 łączyło wielką skalę widowiska z przełomowymi wynikami sportowymi.',
     highlights: [
-      'Michael Phelps zdoby� 8 z�otych medali podczas jednej edycji.',
-      'Usain Bolt ustanowi� rekordy �wiata na 100 i 200 m.',
-      'Chiny po raz pierwszy prowadzi�y w liczbie z�otych medali.',
+      'Michael Phelps zdobył 8 złotych medali podczas jednej edycji.',
+      'Usain Bolt ustanowił rekordy świata na 100 i 200 m.',
+      'Chiny po raz pierwszy prowadziły w liczbie złotych medali.',
     ],
     medalTableTop: [
       { rank: 1, country: 'China', gold: 48, silver: 22, bronze: 30, total: 100 },
@@ -266,11 +266,11 @@ const EDITION_OVERRIDES: Record<string, EditionOverride> = {
   },
   [toId({ season: 'Winter', city: 'Vancouver', year: 2010 })]: {
     summary:
-      'Vancouver po��czy�o znakomit� atmosfer� z pami�tnym fina�em hokeja i rekordowym wynikiem gospodarzy.',
+      'Vancouver połączyło znakomitą atmosferę z pamiętnym finałem hokeja i rekordowym wynikiem gospodarzy.',
     highlights: [
-      'Kanada wygra�a z�oto w hokeju m�czyzn po dogrywce z USA.',
-      'Gospodarze ustanowili rekord 14 z�otych medali zimowych igrzysk.',
-      'Edycj� chwalono za energi� kibic�w i logistyk� obiekt�w g�rskich.',
+      'Kanada wygrała złoto w hokeju mężczyzn po dogrywce z USA.',
+      'Gospodarze ustanowili rekord 14 złotych medali zimowych igrzysk.',
+      'Edycję chwalono za energię kibiców i logistykę obiektów górskich.',
     ],
     medalTableTop: [
       { rank: 1, country: 'Canada', gold: 14, silver: 7, bronze: 5, total: 26 },
@@ -287,11 +287,11 @@ const EDITION_OVERRIDES: Record<string, EditionOverride> = {
   },
   [toId({ season: 'Summer', city: 'Paris', year: 2024 })]: {
     summary:
-      'Powr�t Pary�a po 100 latach jako gospodarza letnich igrzysk i mocne osadzenie zawod�w w tkance miasta.',
+      'Powrót Paryża po 100 latach jako gospodarza letnich igrzysk i mocne osadzenie zawodów w tkance miasta.',
     highlights: [
-      'Ceremonia otwarcia zosta�a przeniesiona ze stadionu na Sekwan�.',
-      'Breaking zadebiutowa� jako dyscyplina olimpijska.',
-      'Wiele aren oparto o ikoniczne lokalizacje Pary�a.',
+      'Ceremonia otwarcia została przeniesiona ze stadionu na Sekwanę.',
+      'Breaking zadebiutował jako dyscyplina olimpijska.',
+      'Wiele aren oparto o ikoniczne lokalizacje Paryża.',
     ],
     medalTableTop: [
       { rank: 1, country: 'United States', gold: 40, silver: 44, bronze: 42, total: 126 },

@@ -15,6 +15,7 @@
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
   background: #0e1117;
   color: #e6e9ef;
 }

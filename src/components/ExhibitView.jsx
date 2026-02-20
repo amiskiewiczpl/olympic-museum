@@ -1,4 +1,4 @@
-function ExhibitView({ edition }) {
+﻿function ExhibitView({ edition }) {
   if (!edition) {
     return <section className="exhibit" aria-live="polite">No edition selected.</section>
   }
@@ -8,12 +8,12 @@ function ExhibitView({ edition }) {
   return (
     <article className="exhibit" aria-labelledby="edition-title">
       <header className="exhibit-header">
-        <p className="exhibit-kicker">{edition.season === 'Winter' ? 'Igrzyska Zimowe' : 'Igrzyska Letnie'}</p>
+        <p className="exhibit-kicker">{edition.season === 'Winter' ? 'Igrzyska zimowe' : 'Igrzyska letnie'}</p>
         <h1 id="edition-title">{edition.title}</h1>
         <p className="exhibit-meta">
           {edition.city}, {edition.country} | {edition.dates}
         </p>
-        {isCancelled ? <p className="exhibit-status">Edycja odwo�ana</p> : null}
+        {isCancelled ? <p className="exhibit-status">Edycja odwołana</p> : null}
       </header>
 
       <p className="exhibit-summary">{edition.summary}</p>
@@ -34,7 +34,7 @@ function ExhibitView({ edition }) {
             <thead>
               <tr>
                 <th scope="col">#</th>
-                <th scope="col">Pa�stwo</th>
+                <th scope="col">Państwo</th>
                 <th scope="col">Z</th>
                 <th scope="col">S</th>
                 <th scope="col">B</th>
@@ -55,12 +55,12 @@ function ExhibitView({ edition }) {
             </tbody>
           </table>
         ) : (
-          <p className="exhibit-note">Dla tej edycji tabela medalowa nie zosta�a jeszcze dodana do ekspozycji.</p>
+          <p className="exhibit-note">Dla tej edycji tabela medalowa nie została jeszcze dodana do ekspozycji.</p>
         )}
       </section>
 
       <section aria-labelledby="sources-heading">
-        <h2 id="sources-heading">�r�d�a</h2>
+        <h2 id="sources-heading">Źródła</h2>
         <ul>
           {edition.sources.map((source) => (
             <li key={source.url}>

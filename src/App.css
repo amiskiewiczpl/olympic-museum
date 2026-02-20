@@ -6,6 +6,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto;
+  overflow-x: clip;
   background:
     radial-gradient(circle at 20% 20%, rgba(212, 174, 109, 0.14), transparent 34%),
     radial-gradient(circle at 80% 70%, rgba(94, 112, 165, 0.14), transparent 38%),
@@ -15,6 +16,7 @@
 .exhibit {
   width: min(1040px, calc(100% - 2rem));
   margin: 1.5rem auto 1rem;
+  margin-inline: auto;
   padding: clamp(1rem, 2vw, 1.8rem);
   border-radius: 18px;
   border: 1px solid rgba(212, 174, 109, 0.38);
