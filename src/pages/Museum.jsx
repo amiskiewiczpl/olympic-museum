@@ -5,7 +5,7 @@ import TimelineBar from '../components/TimelineBar'
 import { olympicsTimeline } from '../data/olympicsTimeline'
 
 function Museum() {
-  const [activeId, setActiveId] = useState(olympicsTimeline[0]?.id ?? null)
+  const [activeId, setActiveId] = useState(olympicsTimeline[olympicsTimeline.length - 1]?.id ?? null)
 
   const activeIndex = useMemo(
     () => olympicsTimeline.findIndex((edition) => edition.id === activeId),
@@ -36,10 +36,15 @@ function Museum() {
   }
 
   return (
-    <main>
+    <main className="museum-layout">
       <KeyboardNav onPrev={handlePrev} onNext={handleNext} />
       <ExhibitView edition={activeEdition} />
-      <TimelineBar editions={olympicsTimeline} activeId={activeId} onSelect={setActiveId} />
+      <TimelineBar
+        editions={olympicsTimeline}
+        activeId={activeId}
+        activeIndex={activeIndex}
+        onSelect={setActiveId}
+      />
     </main>
   )
 }

@@ -4,10 +4,12 @@ function KeyboardNav({ onPrev, onNext, onEscape }) {
   useEffect(() => {
     function handleKeyDown(event) {
       if (event.key === 'ArrowLeft') {
+        event.preventDefault()
         onPrev()
       }
 
       if (event.key === 'ArrowRight') {
+        event.preventDefault()
         onNext()
       }
 
